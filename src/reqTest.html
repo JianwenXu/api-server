@@ -51,20 +51,37 @@
     });
     test3.click(function() {
       $.ajax({
-        type: 'post', // 以get方式发起请求
-        url: 'http://localhost:3010/test2', // 将你的请求参数以问号拼接到url中进行参数传递
+        type: 'post',
+        url: 'http://localhost:3010/test2',
         contentType: 'text/plain',
-        scriptCharset: 'utf-8',
-        data: { // 提交数据
-          username: 'admin', // 前者为字段名，后者为数据
+        data:JSON.stringify({
+          username: 'admin',
           password: 123456
-        },
+        }), // OK
+        // data:{
+        //   username: 'admin',
+        //   password: 123456
+        // }, // OK
         success(data) {
           console.log('test3请求结果', data);
           resultEle.html(JSON.stringify(data));
         }
       });
-    })
+    });
+    test4.click(function() {
+      $.ajax({
+        type: 'post', // 以get方式发起请求
+        url: 'http://localhost:3010/test3', // 将你的请求参数以问号拼接到url中进行参数传递
+        data:{ // 提交数据
+          username: 'admin', // 前者为字段名，后者为数据
+          password: 12345678
+        },
+        success(data) {
+          console.log('test4请求结果', data);
+          resultEle.html(JSON.stringify(data));
+        }
+      });
+    });
   </script>
 </body>
 </html>

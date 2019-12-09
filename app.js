@@ -1,7 +1,10 @@
 var express = require('express');
-var Mock = require('mockjs')
+var Mock = require('mockjs');
+var bodyParser = require('body-parser');
 
 var app = express();
+
+app.use(bodyParser.json());
 
 //设置跨域
 app.all('*', function(req, res, next) {
@@ -39,16 +42,29 @@ app.get('/test1/:id?', function(req, res) {
 });
 
 app.post('/test2', function(req, res) {
-  const params = req.params;
-  const body = req.body;
-  const query = req.query;
-  console.log('测试 body', body);
-  res.status(200),
-  res.json({ data: {
-    params,
-    query,
-    body
-  }});
+  let str = "";
+  req.on("data",function (chunk) {
+    str += chunk;
+  });
+  req.on("end",function () {
+    console.log('test222222', str);
+    res.json({
+      time: new Date()
+    });
+  });
+});
+
+app.post('/test3', function(req, res) {
+  let str = "";
+  req.on("data",function (chunk) {
+    str += chunk;
+  });
+  req.on("end",function () {
+    console.log('test3333', str);
+    res.json({
+      time: new Date()
+    });
+  });
 });
 
 var server = app.listen(3010, function () {
