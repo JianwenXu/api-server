@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试请求</title>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+  <style type="text/css">
+    button {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>测试发请求</h1>
+  <h3>GET 请求</h3>
+  <button id='test1'>/test1?a=12&b=444</button>
+  <button id='test2'>/test1/ww?a=12&b=23</button>
+  <h3>POST 请求</h3>
+  <button id='test3'>test3</button>
+  <button id='test4'>test4</button>
+  <div id='resultBox'>
+    测试服务器返回结果：
+    <div id='result'></div>
+  </div>
+  <script type="text/javascript">
+    var resultEle = $('#result');
+    var test1 = $('#test1');
+    var test2 = $('#test2');
+    var test3 = $('#test3');
+    var test4 = $('#test4');
+    // 添加事件
+    test1.click(function() {
+      $.ajax({
+        type: 'get', // 以get方式发起请求
+        url: 'http://localhost:3010/test1?a=12&b=444', // 将你的请求参数以问号拼接到url中进行参数传递
+        success(data) {
+          console.log('test1请求结果', data);
+          resultEle.html(JSON.stringify(data));
+        }
+      });
+    });
+    test2.click(function() {
+      $.ajax({
+        type: 'get', // 以get方式发起请求
+        url: 'http://localhost:3010/test1/ww?a=12&b=444', // 将你的请求参数以问号拼接到url中进行参数传递
+        success(data) {
+          console.log('test2请求结果', data);
+          resultEle.html(JSON.stringify(data));
+        }
+      });
+    });
+    test3.click(function() {
+      $.ajax({
+        type: 'post', // 以get方式发起请求
+        url: 'http://localhost:3010/test2', // 将你的请求参数以问号拼接到url中进行参数传递
+        contentType: 'text/plain',
+        scriptCharset: 'utf-8',
+        data: { // 提交数据
+          username: 'admin', // 前者为字段名，后者为数据
+          password: 123456
+        },
+        success(data) {
+          console.log('test3请求结果', data);
+          resultEle.html(JSON.stringify(data));
+        }
+      });
+    })
+  </script>
+</body>
+</html>
