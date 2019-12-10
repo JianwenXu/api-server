@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试 axios 发请求</title>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <h3>测试 axios 发请求</h3>
+  <button id='test1'>test1</button>
+  <div>
+    测试请求结果
+    <p id='result'></p>
+  </div>
+  <script type="text/javascript">
+    var resultEle = $('#result');
+    var test1 = $('#test1');
+    test1.click(function() {
+      axios.get('http://localhost:3010/test1?a=12&b=444')
+        .then(function (response) {
+          console.log(response);
+          resultEle.html(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    });
+  </script>
+</body>
+</html>
